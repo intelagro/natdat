@@ -1,5 +1,13 @@
-import { AppBar, Toolbar, IconButton, Typography } from '@mui/material'
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Avatar,
+  Badge
+} from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
+import NotificationIcon from '@mui/icons-material/Notifications'
 
 import { Link, useLocation } from 'react-router-dom'
 import { HOME_PATH } from '../../router/paths'
@@ -33,6 +41,14 @@ const Navbar = ({ open, setOpen }: props): JSX.Element => {
           >
             NATDAT
           </Typography>
+          <IconButton color='inherit'>
+            <Badge badgeContent={6} color='secondary'>
+              <NotificationIcon />
+            </Badge>
+          </IconButton>
+          <IconButton>
+            <Avatar sx={{ bgcolor: 'secondary.main' }} />
+          </IconButton>
         </Toolbar>
       </AppBar>
     </>

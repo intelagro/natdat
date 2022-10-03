@@ -5,14 +5,10 @@ import {
   CardActions,
   Typography,
   TextField,
-  Checkbox,
   Button,
-  FormGroup,
-  FormControlLabel,
+  CircularProgress,
   Avatar
 } from '@mui/material'
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -24,6 +20,7 @@ import { setCatalogos, setModulos } from '../context/slices/appDataSlice'
 import { setUser } from '../context/slices/userSlice'
 
 const Login = (): JSX.Element => {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const usernameError = useError()
@@ -48,9 +45,11 @@ const Login = (): JSX.Element => {
   const login = (): void => {
     const notEmpty = checkNotEmpty()
     if (!notEmpty) return
+    setIsLoading(true)
     void (async () => {
       const auth = await LOGIN_USER(username, password)
       if (auth === null) {
+        setIsLoading(false)
         generalError.setError('Hay un error en las credenciales')
         passwordError.setError('Hay un error en las credenciales')
         return
@@ -84,7 +83,7 @@ const Login = (): JSX.Element => {
                 bgcolor: 'primary.main'
               }}
             >
-              I
+              {!isLoading ? 'H' : <CircularProgress color='inherit' />}
             </Avatar>
             <Typography variant="h4" align="center">
               Iniciar sesión
@@ -106,18 +105,6 @@ const Login = (): JSX.Element => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    icon={<RadioButtonUncheckedIcon />}
-                    checkedIcon={<CheckCircleIcon />}
-                    size="small"
-                  />
-                }
-                label="Recuerdame"
-              />
-            </FormGroup>
           </Grid>
           <CardActions>
             <Button variant="contained" onClick={login}>

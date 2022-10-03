@@ -5,10 +5,11 @@ import Title from '../components/Generic/Title'
 import SingleGraph from '../components/Lamparas/SingleGraph'
 import DualGraph from '../components/Lamparas/DualGraph'
 import Map from '../components/Generic/Map'
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 
 const ModuleLamparasView = (): JSX.Element => {
-  const [device, setDevice] = useState<string>('')
-  const [date, setDate] = useState<string | null>(null)
+  const [device, setDevice] = useState<number | null>(null)
+  const [date, setDate] = useState<AdapterMoment | null>(null)
 
   const placeHolderData = [
     1, 2, 3, 8, 5, 6, 1, 8, 9, 2, 3, 4, 13, 14, 15, 14, 17, 18, 19, 20, 20, 22,
@@ -43,7 +44,7 @@ const ModuleLamparasView = (): JSX.Element => {
           data1={placeHolderData}
           data2={secPlaceHolderData}
         />
-        <Grid item xs={12} md={10} lg={4} sx={{ height: '40vh' }}>
+        <Grid item xs={12} md={10} lg={4} sx={{ height: '250px' }}>
           <Card sx={{ height: '100%' }}>
             <CardContent sx={{ height: '100%' }}>
               <Map />

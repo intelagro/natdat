@@ -12,13 +12,13 @@ import { DatePicker } from '@mui/x-date-pickers'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../context'
 import { Dispositivos_I } from '../../types/app.types'
-// import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 
 interface props {
-  device: string
-  setDevice: React.Dispatch<React.SetStateAction<string>>
-  date: string | null
-  setDate: React.Dispatch<React.SetStateAction<string | null>>
+  device: number | null
+  setDevice: React.Dispatch<React.SetStateAction<number | null>>
+  date: AdapterMoment | null
+  setDate: React.Dispatch<React.SetStateAction<AdapterMoment | null>>
 }
 const SelectDevice = ({
   device,
@@ -40,7 +40,7 @@ const SelectDevice = ({
             labelId={selectDevicesID}
             value={device}
             label="Dispositivo"
-            onChange={(e) => setDevice(e.target.value)}
+            onChange={(e) => setDevice(e.target.value as number)}
           >
             {devices.map((device) => (
               <MenuItem
@@ -58,7 +58,7 @@ const SelectDevice = ({
           <DatePicker
             openTo="year"
             views={['year', 'month', 'day']}
-            label="Año, mes y día"
+            label="Fecha"
             value={date}
             onChange={(newDate) => {
               setDate(newDate)

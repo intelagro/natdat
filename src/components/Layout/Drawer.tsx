@@ -1,4 +1,4 @@
-import { SwipeableDrawer, Avatar, IconButton } from '@mui/material'
+import { SwipeableDrawer, Avatar } from '@mui/material'
 import DrawerList from './DrawerList'
 import DrawerOption from './DrawerOption'
 import LightIcon from '@mui/icons-material/Light'
@@ -15,12 +15,11 @@ const Drawer = ({ open, setOpen }: props): JSX.Element => {
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
     >
-      <IconButton>
-        <Avatar
-          sx={{ width: 48, height: 48, marginX: 'auto' }}
-        >
-        </Avatar>
-      </IconButton>
+      <Avatar
+        sx={{ bgcolor: 'primary.main', width: 48, height: 48, marginX: 'auto', marginY: '16px' }}
+      >
+        L
+      </Avatar>
       <DrawerList setOpen={setOpen}>
         <DrawerOption
           icon={LightIcon}
