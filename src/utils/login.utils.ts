@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { LoginResponse_I } from '../types/app.types'
 
-const baseURL = process.env.REACT_APP_API
+const baseURL = 'https://data.intelagro.net'
 
 export const LOGIN_USER = async (
   user: string,

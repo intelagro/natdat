@@ -10,8 +10,11 @@ const persistedReducers = combineReducers({
   user: userSlice,
   app_data: appReducer
 })
+
+export const REDUX_KEY = 'devices-app-intelagro-v1'
+
 const persistConfig = {
-  key: 'devices-app-intelagro-v1',
+  key: REDUX_KEY,
   storage
 }
 const persistedReducer = persistReducer(persistConfig, persistedReducers)
@@ -20,9 +23,10 @@ export const store = configureStore({
   reducer: {
     root: persistedReducer
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: false
-  })
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false
+    })
 })
 
 export type RootState = ReturnType<typeof store.getState>

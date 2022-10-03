@@ -71,7 +71,9 @@ const Login = (): JSX.Element => {
 
   return (
     <Grid item xs={12} sm={7} md={6} lg={5} marginX="auto" marginY={6}>
-      <Card>
+      <Card
+        onKeyDown={(e) => e.key === 'Enter' && login()}
+      >
         <CardContent>
           <Grid container direction="column" padding={2} gap={2}>
             <Avatar

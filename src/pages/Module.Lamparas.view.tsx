@@ -1,9 +1,9 @@
 import { Container, Grid, Card, CardContent } from '@mui/material'
 import { useState } from 'react'
-import SelectDevice from '../components/Modulo_1/SelectDevice'
+import SelectDevice from '../components/Lamparas/SelectDevice'
 import Title from '../components/Generic/Title'
-import SingleGraph from '../components/Modulo_1/SingleGraph'
-import DualGraph from '../components/Modulo_1/DualGraph'
+import SingleGraph from '../components/Lamparas/SingleGraph'
+import DualGraph from '../components/Lamparas/DualGraph'
 import Map from '../components/Generic/Map'
 
 const ModuleLamparasView = (): JSX.Element => {

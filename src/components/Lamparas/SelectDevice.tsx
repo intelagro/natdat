@@ -9,6 +9,9 @@ import {
   TextField
 } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../context'
+import { Dispositivos_I } from '../../types/app.types'
 // import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 
 interface props {
@@ -17,8 +20,17 @@ interface props {
   date: string | null
   setDate: React.Dispatch<React.SetStateAction<string | null>>
 }
-const SelectDevice = ({ device, setDevice, date, setDate }: props): JSX.Element => {
+const SelectDevice = ({
+  device,
+  setDevice,
+  date,
+  setDate
+}: props): JSX.Element => {
   const selectDevicesID = useId()
+  const devices = useSelector(
+    (state: RootState) =>
+      state.root.app_data.catalogos?.dispositivos as Dispositivos_I[]
+  )
   return (
     <>
       <Grid item xs={11} sm={8} md={6} lg={4}>
@@ -30,7 +42,14 @@ const SelectDevice = ({ device, setDevice, date, setDate }: props): JSX.Element 
             label="Dispositivo"
             onChange={(e) => setDevice(e.target.value)}
           >
-            <MenuItem value={10}>Hola</MenuItem>
+            {devices.map((device) => (
+              <MenuItem
+                key={device.cat_dispositivos_mu_id}
+                value={device.cat_dispositivos_mu_id}
+              >
+                {device.descripcion_dispositivo}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Grid>

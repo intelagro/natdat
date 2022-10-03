@@ -1,6 +1,7 @@
 export const DEFAULT_PATH = '/'
 export const NOT_FOUND = '*'
 export const LOGIN_PATH = '/login'
+export const LOGOUT_PATH = '/logout'
 export const RESET_PASS_PATH = '/recover-pass'
 export const HOME_PATH = '/inicio'
 export const DASHBOARD_PATH = '/dashboard'

@@ -6,7 +6,8 @@ import {
   RESET_PASS_PATH,
   HOME_PATH,
   DASHBOARD_PATH,
-  MODULE_LAMPARAS_PATH
+  MODULE_LAMPARAS_PATH,
+  LOGOUT_PATH
 } from './paths'
 import PublicRoute from './PrivateRoute'
 import PrivateRoute from './PublicRoute'
@@ -15,6 +16,7 @@ import LoginView from '../pages/Login.view'
 import HomeView from '../pages/Home.view'
 import ModuleLamparasView from '../pages/Module.Lamparas.view'
 import Layout from '../components/Layout'
+import LogoutRoute from './LogoutRoute'
 
 const Router = (): JSX.Element => {
   return (
@@ -40,6 +42,9 @@ const Router = (): JSX.Element => {
               element={<ModuleLamparasView />}
             />
           </Route>
+        </Route>
+        <Route path={LOGOUT_PATH} element={<PrivateRoute />}>
+          <Route index element={<LogoutRoute />} />
         </Route>
       </Routes>
     </HashRouter>

@@ -22,9 +22,15 @@ const UserSlice = createSlice({
       state.name = action.payload.name
       state.token = action.payload.token
       state.license_id = action.payload.license_id
+    },
+    logOutUser: (state) => {
+      state.username = null
+      state.name = null
+      state.token = null
+      state.license_id = null
     }
   }
 })
 
 export default UserSlice.reducer
-export const { setUser } = UserSlice.actions
+export const { setUser, logOutUser } = UserSlice.actions

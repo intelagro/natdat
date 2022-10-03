@@ -1,7 +1,7 @@
 import { AppBar, Toolbar, IconButton, Typography } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { HOME_PATH } from '../../router/paths'
 
 interface props {
@@ -24,7 +24,13 @@ const Navbar = ({ open, setOpen }: props): JSX.Element => {
               <MenuIcon />
             </IconButton>
           )}
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            color="inherit"
+            sx={{ flexGrow: 1, textDecoration: 'none' }}
+            component={Link}
+            to={HOME_PATH}
+          >
             NATDAT
           </Typography>
         </Toolbar>
