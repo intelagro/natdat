@@ -15,8 +15,8 @@ import { Dispositivos_I } from '../../types/app.types'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 
 interface props {
-  device: number | null
-  setDevice: React.Dispatch<React.SetStateAction<number | null>>
+  device: string
+  setDevice: React.Dispatch<React.SetStateAction<string>>
   date: AdapterMoment | null
   setDate: React.Dispatch<React.SetStateAction<AdapterMoment | null>>
 }
@@ -38,9 +38,9 @@ const SelectDevice = ({
           <InputLabel id={selectDevicesID}>Dispositivo</InputLabel>
           <Select
             labelId={selectDevicesID}
-            value={device}
+            value={device.toString()}
             label="Dispositivo"
-            onChange={(e) => setDevice(e.target.value as number)}
+            onChange={(e) => setDevice(e.target.value)}
           >
             {devices.map((device) => (
               <MenuItem

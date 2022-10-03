@@ -6,7 +6,7 @@ import {
   ListItemText,
   Avatar
 } from '@mui/material'
-import LightIcon from '@mui/icons-material/Light'
+import FluorescentIcon from '@mui/icons-material/Fluorescent'
 import { primaryColor } from '../../mui.theme'
 import { MODULE_LAMPARAS_PATH } from '../../router/paths'
 
@@ -20,13 +20,10 @@ const ModulesList = (): JSX.Element => {
       <ListItemButton onClick={handleRedirect}>
         <ListItemAvatar>
           <Avatar sx={{ bgcolor: primaryColor.main }}>
-            <LightIcon />
+            <FluorescentIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText
-          primary="Lamparas"
-          secondary="Modulo de lamparas"
-        />
+        <ListItemText primary="Lamparas" secondary="Modulo de lamparas" />
       </ListItemButton>
     </List>
   )

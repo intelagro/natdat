@@ -8,7 +8,7 @@ import Map from '../components/Generic/Map'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 
 const ModuleLamparasView = (): JSX.Element => {
-  const [device, setDevice] = useState<number | null>(null)
+  const [device, setDevice] = useState<string>('')
   const [date, setDate] = useState<AdapterMoment | null>(null)
 
   const placeHolderData = [
