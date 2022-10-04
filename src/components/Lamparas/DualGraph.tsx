@@ -1,7 +1,6 @@
 import { Grid, Card, CardContent } from '@mui/material'
 import { ChartData } from 'chart.js'
 import Graph from '../Generic/Graph'
-import { hoursLabel } from '../Generic/Graph/labels'
 import { primaryColor } from '../../mui.theme'
 
 interface props {
@@ -9,8 +8,9 @@ interface props {
   data1: number[]
   name2: string
   data2: number[]
+  labels: string[]
 }
-const DualGraph = ({ name1, name2, data1, data2 }: props): JSX.Element => {
+const DualGraph = ({ name1, name2, data1, data2, labels }: props): JSX.Element => {
   const data: ChartData<'line'> = {
     datasets: [
       {
@@ -28,7 +28,7 @@ const DualGraph = ({ name1, name2, data1, data2 }: props): JSX.Element => {
         pointRadius: 2
       }
     ],
-    labels: hoursLabel()
+    labels
   }
   return (
     <Grid item xs={12} md={10} lg={8}>

@@ -1,4 +1,4 @@
-import { useId } from 'react'
+import { MouseEventHandler, useId } from 'react'
 import {
   Button,
   FormControl,
@@ -12,19 +12,25 @@ import { DatePicker } from '@mui/x-date-pickers'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../context'
 import { Dispositivos_I } from '../../types/app.types'
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import { Moment } from 'moment'
 
 interface props {
   device: string
   setDevice: React.Dispatch<React.SetStateAction<string>>
-  date: AdapterMoment | null
-  setDate: React.Dispatch<React.SetStateAction<AdapterMoment | null>>
+  date: Moment | null
+  setDate: React.Dispatch<React.SetStateAction<Moment | null>>
+  handleSubmit: MouseEventHandler
+  dateError: boolean
+  deviceError: boolean
 }
 const SelectDevice = ({
   device,
   setDevice,
   date,
-  setDate
+  setDate,
+  handleSubmit,
+  dateError,
+  deviceError
 }: props): JSX.Element => {
   const selectDevicesID = useId()
   const devices = useSelector(
@@ -41,6 +47,7 @@ const SelectDevice = ({
             value={device.toString()}
             label="Dispositivo"
             onChange={(e) => setDevice(e.target.value)}
+            error={deviceError}
           >
             {devices.map((device) => (
               <MenuItem
@@ -63,12 +70,12 @@ const SelectDevice = ({
             onChange={(newDate) => {
               setDate(newDate)
             }}
-            renderInput={(params) => <TextField {...params} />}
+            renderInput={(params) => <TextField {...params} error={dateError} />}
           />
         </FormControl>
       </Grid>
       <Grid item xs={4}>
-        <Button variant="contained" size="large">
+        <Button variant="contained" size="large" onClick={handleSubmit}>
           Enviar
         </Button>
       </Grid>

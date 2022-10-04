@@ -1,14 +1,14 @@
 import { Grid, Card, CardContent } from '@mui/material'
 import { ChartData } from 'chart.js'
 import Graph from '../Generic/Graph'
-import { hoursLabel } from '../Generic/Graph/labels'
 import { primaryColor } from '../../mui.theme'
 
 interface props {
   name: string
   data: number[]
+  labels: string[]
 }
-const SingleGraph = ({ name, data: dataToGraph }: props): JSX.Element => {
+const SingleGraph = ({ name, data: dataToGraph, labels }: props): JSX.Element => {
   const data: ChartData<'line'> = {
     datasets: [
       {
@@ -19,7 +19,7 @@ const SingleGraph = ({ name, data: dataToGraph }: props): JSX.Element => {
         pointRadius: 2
       }
     ],
-    labels: hoursLabel()
+    labels
   }
 
   return (

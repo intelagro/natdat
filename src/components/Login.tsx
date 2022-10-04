@@ -70,9 +70,7 @@ const Login = (): JSX.Element => {
 
   return (
     <Grid item xs={12} sm={7} md={6} lg={5} marginX="auto" marginY={6}>
-      <Card
-        onKeyDown={(e) => e.key === 'Enter' && login()}
-      >
+      <Card onKeyDown={(e) => e.key === 'Enter' && login()}>
         <CardContent>
           <Grid container direction="column" padding={2} gap={2}>
             <Avatar
@@ -83,7 +81,7 @@ const Login = (): JSX.Element => {
                 bgcolor: 'primary.main'
               }}
             >
-              {!isLoading ? 'H' : <CircularProgress color='inherit' />}
+              {!isLoading ? 'H' : <CircularProgress color="inherit" />}
             </Avatar>
             <Typography variant="h4" align="center">
               Iniciar sesión

@@ -25,18 +25,7 @@ interface props {
   data: ChartData<'line'>
 }
 const Graph = ({ data }: props): JSX.Element => {
-  return (
-    <Line
-      data={data}
-      options={{
-        plugins: {
-          legend: {
-            display: true
-          }
-        }
-      }}
-    />
-  )
+  return <Line data={data} />
 }
 
 export default Graph

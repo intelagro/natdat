@@ -1,24 +1,80 @@
-import { Container, Grid, Card, CardContent } from '@mui/material'
-import { useState } from 'react'
+import {
+  Container,
+  Grid,
+  Card,
+  CardContent,
+  CircularProgress
+} from '@mui/material'
+import { MouseEventHandler, useEffect, useState } from 'react'
 import SelectDevice from '../components/Lamparas/SelectDevice'
 import Title from '../components/Generic/Title'
 import SingleGraph from '../components/Lamparas/SingleGraph'
 import DualGraph from '../components/Lamparas/DualGraph'
 import Map from '../components/Generic/Map'
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import moment, { Moment } from 'moment'
+import { getData, getData_Devices_I } from '../utils/devices.utils'
+import { useSelector } from 'react-redux'
+import { RootState } from '../context'
+import useGraph from '../hooks/useGraph'
+import useError from '../hooks/useError'
 
 const ModuleLamparasView = (): JSX.Element => {
+  const token = useSelector(
+    (state: RootState) => state.root.user.token
+  ) as string
+  const firstDevice = useSelector(
+    (state: RootState) => state.root.app_data.catalogos?.dispositivos[0]
+  )
   const [device, setDevice] = useState<string>('')
-  const [date, setDate] = useState<AdapterMoment | null>(null)
+  const [date, setDate] = useState<Moment | null>(moment())
+  const graphData = useGraph()
+  const devicesError = useError()
+  const dateError = useError()
 
-  const placeHolderData = [
-    1, 2, 3, 8, 5, 6, 1, 8, 9, 2, 3, 4, 13, 14, 15, 14, 17, 18, 19, 20, 20, 22,
-    18, 17, 14
-  ]
-  const secPlaceHolderData = [
-    0, 3, 4, 1, 5, 6, 10, 12, 3, 5, 6, 7, 6, 5, 4, 3, 2, 1, 8, 10, 12, 13, 13,
-    15, 19
-  ].reverse()
+  useEffect(() => {
+    if (firstDevice !== undefined) {
+      void (async () => {
+        const rq: getData_Devices_I = {
+          deviceId: firstDevice.cat_dispositivos_mu_id.toString(),
+          token,
+          day: moment().date(),
+          month: moment().month() + 1,
+          year: moment().year()
+        }
+        const data = await getData(rq)
+        if (data !== null) {
+          graphData.update(data)
+        }
+      })()
+    }
+  }, [])
+
+  const handleSubmit: MouseEventHandler = (): void => {
+    if (device === '') {
+      devicesError.setError('Error')
+      return
+    }
+    if (date === null) {
+      dateError.setError('Error')
+      return
+    }
+
+    const rq: getData_Devices_I = {
+      deviceId: device,
+      token,
+      day: date.date(),
+      month: date.month() + 1,
+      year: date.year()
+    }
+
+    void (async () => {
+      const data = await getData(rq)
+      if (data !== null) {
+        graphData.update(data)
+      }
+    })()
+  }
+
   return (
     <Container>
       <Grid
@@ -34,23 +90,44 @@ const ModuleLamparasView = (): JSX.Element => {
           setDevice={setDevice}
           date={date}
           setDate={setDate}
+          handleSubmit={handleSubmit}
+          dateError={dateError.error}
+          deviceError={devicesError.error}
         />
-        <Title text="Graficas" variant="h5" />
-        <SingleGraph name="Amp led" data={placeHolderData} />
-        <SingleGraph name="Amp panel" data={secPlaceHolderData} />
-        <DualGraph
-          name1="Temp"
-          name2="Hr"
-          data1={placeHolderData}
-          data2={secPlaceHolderData}
-        />
-        <Grid item xs={12} md={10} lg={4} sx={{ height: '250px' }}>
-          <Card sx={{ height: '100%' }}>
-            <CardContent sx={{ height: '100%' }}>
-              <Map />
-            </CardContent>
-          </Card>
-        </Grid>
+        {
+        graphData.isLoading
+          ? <CircularProgress sx={{ margin: '32px' }} />
+          : <>
+              <Title
+                text={firstDevice?.descripcion_dispositivo as string}
+                variant="h5"
+              />
+              <SingleGraph
+                name="Amperios led"
+                data={graphData.ampLed}
+                labels={graphData.labels}
+              />
+              <SingleGraph
+                name="Amperios panel"
+                data={graphData.ampPanel}
+                labels={graphData.labels}
+              />
+              <DualGraph
+                name1="Temperatura ambiente"
+                name2="Humedad relativa"
+                data1={graphData.temp}
+                data2={graphData.hr}
+                labels={graphData.labels}
+              />
+              <Grid item xs={12} md={10} lg={4} sx={{ height: '250px' }}>
+                <Card sx={{ height: '100%' }}>
+                  <CardContent sx={{ height: '100%' }}>
+                    <Map />
+                  </CardContent>
+                </Card>
+              </Grid>
+            </>
+        }
       </Grid>
     </Container>
   )
