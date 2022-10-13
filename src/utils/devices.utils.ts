@@ -19,7 +19,7 @@ export const getData = async ({
   try {
     const rp = await axios({
       baseURL,
-      url: `/lamparas?day=${year}-${day}-${month}&id=${deviceId}&fun=day&token=${token}`
+      url: `/lamparas?day=${year}-${month}-${day}&id=${deviceId}&fun=day&token=${token}`
     })
     return rp.data.data
   } catch (error) {
